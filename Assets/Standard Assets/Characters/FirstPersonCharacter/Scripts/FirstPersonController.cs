@@ -5,6 +5,7 @@ using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
 using UnityEngine.Networking; // Agregamos Esto
 
+
 #pragma warning disable 618, 649
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -31,7 +32,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
 
-        public Camera m_Camera;
+        public Camera m_Camera; // Camara del Jugador
+        public Camera lobbyCamera; // Camara del Lobby
         private bool m_Jump;
         private float m_YRotation;
         private Vector2 m_Input;
@@ -44,12 +46,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        
+        
 
         // Use this for initialization
         private void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = GetComponentInChildren<Camera>() ; // Buscamos la camara que esta como hija del player 
+            
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
             m_FovKick.Setup(m_Camera);
             m_HeadBob.Setup(m_Camera, m_StepInterval);
@@ -59,7 +64,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 
-           
+          
             // si el jugador, no es el Local Player, apagamos la camara
             if (!isLocalPlayer) {
 
@@ -68,7 +73,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
         }
 
+        public override void OnStartLocalPlayer() // Al conectarse
+        {
+            lobbyCamera = GameObject.FindGameObjectWithTag("LobbyCamera").GetComponent<Camera>(); // BUscamos la camara del Lobby
+            lobbyCamera.enabled = false; // La desconectamos
+            
+        }
 
+      
         // Update is called once per frame
         private void Update()
         {
