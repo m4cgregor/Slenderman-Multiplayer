@@ -1362,6 +1362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7854005400727660467}
   - component: {fileID: 2573879664478993843}
+  - component: {fileID: 759716459735404387}
   m_Layer: 0
   m_Name: FlahsLigth
   m_TagString: Untagged
@@ -1444,6 +1445,18 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &759716459735404387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4367212443855581157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6414d63ff288c96469caf82f1a64d5a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4404269729599599360
 GameObject:
   m_ObjectHideFlags: 0
@@ -2954,6 +2967,7 @@ MonoBehaviour:
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
   m_Camera: {fileID: 0}
+  lobbyCamera: {fileID: 0}
 --- !u!1 &7702671770847953575
 GameObject:
   m_ObjectHideFlags: 0
