@@ -8,11 +8,9 @@ public class PlayerController : NetworkBehaviour
    
     public override void OnStartLocalPlayer() // Al conectarse
     {
-
        
         GameObject lobbyCamera = GameObject.FindGameObjectWithTag("LobbyCamera"); // BUscamos la camara del Lobby
         lobbyCamera.SetActive(false);// La desconectamos
-
 
     }
 

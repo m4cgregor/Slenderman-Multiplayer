@@ -8,28 +8,30 @@ public class SlenderManController : NetworkBehaviour
 {
 
     public NavMeshAgent navMeshAgent;
-    public Vector3 currentTarget;
+    public GameObject currentTarget;
     
-    
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
 
     [ClientRpc]
-    public void RpcSelectTarget(Vector3 _target) {
+    public void RpcSetDestination(GameObject _target) {
 
+        Debug.Log("New Target Selected");
         currentTarget = _target;
-        InvokeRepeating(nameof(FindTarget), 0f, 1f);
+        InvokeRepeating(nameof(FollowTarget), 0, 2f);
+        
+     }
+
+    void FollowTarget() {
+
+        Debug.Log("Path finding");
+        navMeshAgent.destination = currentTarget.transform.position;
     }
 
 
-    void FindTarget() {
-
-        navMeshAgent.destination = currentTarget;
-    }
 
     
 }

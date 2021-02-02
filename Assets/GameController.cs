@@ -7,20 +7,13 @@ public class GameController : NetworkBehaviour
 {
     public GameObject slenderManPrefab;
     public Transform slenderSpawnPoint;
-    public List<GameObject> playersList;
+    public List<GameObject> playersList = new List<GameObject>();
     public GameObject slenderMan;
-    public Transform newTarget;
-    public int playerSelected;
-
-    [SyncVar]
-    public int playerConnected;
+    public GameObject newTarget;
 
     public void Start()
     {
-        Debug.Log("StartObjet"); 
-        
-
-    Debug.Log("Initializing  Server");
+       
 
         if (isServer)
         {
@@ -28,33 +21,54 @@ public class GameController : NetworkBehaviour
             slenderMan = Instantiate(slenderManPrefab, slenderSpawnPoint.position, slenderSpawnPoint.rotation);
             NetworkServer.Spawn(slenderMan);
 
+            InvokeRepeating(nameof(UpdateTarget), 2f, 3f);
+
         }
     
     }
 
-    [Command]
-    public void CmdAddPlayerToList(GameObject newPlayer)
-    {
-       
-        playersList.Add(newPlayer);
-        Debug.Log("New Player Joined. Total players:" + playersList.Count);
+   
+    void UpdateTarget() {
+
+            Debug.Log("Update Target");
+            newTarget = PickClosestPlayer();
+            slenderMan.GetComponent<SlenderManController>().RpcSetDestination(newTarget);   
+    }
+
+
+   
+    GameObject PickClosestPlayer() {
+
+        Debug.Log("Pick closest Player");
+        float distance = Mathf.Infinity;
+        GameObject pickedPlayer = null;
+
+        foreach (GameObject _player in playersList) {
+
+            float playerDistance = Vector3.Distance(transform.position, _player.transform.position);
+
+            if (playerDistance < distance) {
+
+                Debug.Log("Closer Player Found");
+                distance = playerDistance;
+                pickedPlayer = _player;
+            
+            }
+
+        }
+
+        return pickedPlayer;
 
     }
 
-    private void Update()
+    // Joining Players
+    [Command]
+    public void CmdAddPlayerToList(GameObject newPlayer)
     {
-        if (isServer && Input.GetKeyDown(KeyCode.P))
-        {
 
-            int numberOfPlayers = playersList.Count;
-            playerSelected = Random.Range(0, numberOfPlayers);
+        playersList.Add(newPlayer);
+        Debug.Log("New Player Joined. Total players:" + playersList.Count);
 
-            Debug.Log("PURSUIT !!!");
-
-            newTarget = playersList[playerSelected].transform;
-            slenderMan.GetComponent<SlenderManController>().RpcSelectTarget(newTarget.position);
-
-        }
     }
 
 
