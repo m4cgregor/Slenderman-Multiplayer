@@ -5,23 +5,26 @@ using UnityEngine.Networking;
 
 public class GameController : NetworkBehaviour
 {
-    public GameObject slenderManPrefab;
-    public Transform slenderSpawnPoint;
+    
     public List<GameObject> playersList = new List<GameObject>();
-    public GameObject slenderMan;
+    public GameObject slenderManPrefab;
+    private Transform slenderSpawnPoint;
+    private GameObject slenderMan;
     public GameObject newTarget;
+    public float closestPlayerCheckInterval;
 
     public void Start()
     {
-       
+        closestPlayerCheckInterval = 3F;
 
         if (isServer)
         {
             Debug.Log("Is the SERVER ");
+            slenderSpawnPoint = GameObject.Find("SlenderSpawnPoint").transform;
             slenderMan = Instantiate(slenderManPrefab, slenderSpawnPoint.position, slenderSpawnPoint.rotation);
             NetworkServer.Spawn(slenderMan);
 
-            InvokeRepeating(nameof(UpdateTarget), 2f, 3f);
+            InvokeRepeating(nameof(UpdateTarget), 2f, closestPlayerCheckInterval);
 
         }
     
@@ -31,33 +34,32 @@ public class GameController : NetworkBehaviour
     void UpdateTarget() {
 
             Debug.Log("Update Target");
-            newTarget = PickClosestPlayer();
-            slenderMan.GetComponent<SlenderManController>().RpcSetDestination(newTarget);   
+            newTarget = GetClosestPlayer();
+            slenderMan.GetComponent<SlenderManController>().RpcSetTarget(newTarget);   
     }
-
-
    
-    GameObject PickClosestPlayer() {
+    GameObject GetClosestPlayer() {
 
         Debug.Log("Pick closest Player");
-        float distance = Mathf.Infinity;
-        GameObject pickedPlayer = null;
+
+        float minDistance = Mathf.Infinity;
+        GameObject closestPlayer = null;
 
         foreach (GameObject _player in playersList) {
 
             float playerDistance = Vector3.Distance(transform.position, _player.transform.position);
 
-            if (playerDistance < distance) {
+            if (playerDistance < minDistance) {
 
                 Debug.Log("Closer Player Found");
-                distance = playerDistance;
-                pickedPlayer = _player;
+                minDistance = playerDistance;
+                closestPlayer = _player;
             
             }
 
         }
 
-        return pickedPlayer;
+        return closestPlayer;
 
     }
 

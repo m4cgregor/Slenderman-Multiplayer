@@ -151,11 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b508d1657115370429cf4623125fc4ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playersList: []
   slenderManPrefab: {fileID: 5308436843103347423, guid: b55a9a09fde9e3b468f1fdaf7592c7f8,
     type: 3}
-  slenderSpawnPoint: {fileID: 893778893}
-  playersList: []
-  playerConnected: 0
+  newTarget: {fileID: 0}
+  closestPlayerCheckInterval: 3
 --- !u!4 &490790558
 Transform:
   m_ObjectHideFlags: 0

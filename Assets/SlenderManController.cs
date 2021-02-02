@@ -7,8 +7,9 @@ using UnityEngine.Networking;
 public class SlenderManController : NetworkBehaviour
 {
 
-    public NavMeshAgent navMeshAgent;
-    public GameObject currentTarget;
+    private NavMeshAgent navMeshAgent;
+    private GameObject currentTarget;
+    public float trackingRate = 2f;
     
     void Awake()
     {
@@ -17,11 +18,11 @@ public class SlenderManController : NetworkBehaviour
 
 
     [ClientRpc]
-    public void RpcSetDestination(GameObject _target) {
+    public void RpcSetTarget(GameObject _target) {
 
         Debug.Log("New Target Selected");
         currentTarget = _target;
-        InvokeRepeating(nameof(FollowTarget), 0, 2f);
+        InvokeRepeating(nameof(FollowTarget), 0, trackingRate);
         
      }
 
