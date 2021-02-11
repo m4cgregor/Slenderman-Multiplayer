@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Controllinterna : MonoBehaviour
+public class Controllinterna : NetworkBehaviour
 {
 
     Light linterna;
@@ -10,13 +11,16 @@ public class Controllinterna : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
+
     {
         linterna = GetComponent<Light>();
     }
 
     // Update is called once per frame
     void Update()
+    
     {
+             
         if (Input.GetKeyDown(KeyCode.F))
 
         {

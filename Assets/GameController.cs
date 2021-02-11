@@ -47,7 +47,7 @@ public class GameController : NetworkBehaviour
 
         foreach (GameObject _player in playersList) {
 
-            float playerDistance = Vector3.Distance(transform.position, _player.transform.position);
+            float playerDistance = Vector3.Distance(slenderMan.transform.position, _player.transform.position);
 
             if (playerDistance < minDistance) {
 
