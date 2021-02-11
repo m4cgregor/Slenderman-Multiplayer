@@ -6,12 +6,13 @@ using UnityEngine.Networking;
 public class GameController : NetworkBehaviour
 {
     
-    public List<GameObject> playersList = new List<GameObject>();
-    public GameObject slenderManPrefab;
-    private Transform slenderSpawnPoint;
-    private GameObject slenderMan;
-    public GameObject newTarget;
-    public float closestPlayerCheckInterval;
+    public List<GameObject> playersList = new List<GameObject>(); // Lista de jugadores
+
+    public GameObject slenderManPrefab; // Prefab para instanciar el Slender
+    private Transform slenderSpawnPoint; // Posicion inicial Slender
+    private GameObject slenderMan;  // Objeto para guardar el Slender instanciado
+    public GameObject newTarget; // Nuevo objetivo a perseguir
+    public float closestPlayerCheckInterval; // cada cuanto tiempo busca el jugador mas cercano
 
     public void Start()
     {
@@ -20,9 +21,10 @@ public class GameController : NetworkBehaviour
         if (isServer)
         {
             Debug.Log("Is the SERVER ");
-            slenderSpawnPoint = GameObject.Find("SlenderSpawnPoint").transform;
-            slenderMan = Instantiate(slenderManPrefab, slenderSpawnPoint.position, slenderSpawnPoint.rotation);
-            NetworkServer.Spawn(slenderMan);
+            slenderSpawnPoint = GameObject.Find("SlenderSpawnPoint").transform; // busca el spawn point
+            slenderMan = Instantiate(slenderManPrefab, slenderSpawnPoint.position, slenderSpawnPoint.rotation); // instancia el slender
+            NetworkServer.Spawn(slenderMan); // lo spawnea en todos los clientes
+
 
             InvokeRepeating(nameof(UpdateTarget), 2f, closestPlayerCheckInterval);
 
