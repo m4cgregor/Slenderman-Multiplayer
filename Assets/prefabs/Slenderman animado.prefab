@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4218384355166927827}
   - component: {fileID: 4218384355166927825}
   - component: {fileID: 4218384355166927824}
+  - component: {fileID: 3673009227833405445}
   m_Layer: 0
   m_Name: Slenderman animado
   m_TagString: Slender
@@ -69,8 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3366a27efdb229499f98c35a34f1c1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 0}
-  currentTarget: {x: 0, y: 0, z: 0}
+  trackingRate: 2
 --- !u!114 &4218384355166927825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +126,20 @@ MonoBehaviour:
     i15: 0
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!136 &3673009227833405445
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5308436843103347423}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.38443
+  m_Height: 5.6793537
+  m_Direction: 1
+  m_Center: {x: -0.8832512, y: 2.71, z: 0.6423645}
 --- !u!1001 &4218384355680055471
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -32,7 +32,12 @@ public class SlenderManController : NetworkBehaviour
         navMeshAgent.destination = currentTarget.transform.position;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("COLISION CON ALGO");
+    }
 
 
-    
+
+
 }

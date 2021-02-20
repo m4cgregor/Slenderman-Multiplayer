@@ -21,5 +21,10 @@ public class PlayerController : NetworkBehaviour
         gameController.CmdAddPlayerToList(this.gameObject);
     }
 
-  
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("El player toco algo");
+    }
+
+
 }
